@@ -43,9 +43,9 @@ export default function DevicesPage() {
   }, [activeReadings])
 
   return (
-    <div style={{ display: 'flex', gap: 32, height: '100%' }}>
+    <div className="devices-layout">
       {/* Sidebar Khusus Devices */}
-      <div style={{ width: 280, flexShrink: 0 }}>
+      <div className="devices-sidebar">
         <DeviceList />
       </div>
 
@@ -70,7 +70,7 @@ export default function DevicesPage() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 20, marginBottom: 24 }}>
+        <div className="devices-grid">
           <div style={{ gridColumn: 'span 1' }}>
             <StatusCard
               status={latest?.aiStatus || 'AMAN'}

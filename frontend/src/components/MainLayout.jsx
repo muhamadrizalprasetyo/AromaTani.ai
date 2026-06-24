@@ -25,18 +25,15 @@ export default function MainLayout() {
   ]
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#f8fafc' }}>
+    <div className="layout-wrapper">
+      {/* Mobile Sidebar Overlay */}
+      <div 
+        className={`sidebar-overlay ${isSidebarOpen ? 'active' : ''}`} 
+        onClick={() => setIsSidebarOpen(false)} 
+      />
+
       {/* Sidebar */}
-      <aside style={{
-        width: isSidebarOpen ? 260 : 72, 
-        backgroundColor: 'white', 
-        borderRight: '1px solid #e2e8f0',
-        display: 'flex', 
-        flexDirection: 'column',
-        transition: 'width 0.3s ease',
-        overflow: 'hidden',
-        flexShrink: 0
-      }}>
+      <aside className={`sidebar ${isSidebarOpen ? 'desktop-open mobile-open' : 'desktop-closed'}`}>
         <div style={{ height: 64, display: 'flex', alignItems: 'center', paddingLeft: 24, flexShrink: 0, borderBottom: '1px solid #e2e8f0' }}>
           <button 
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -55,6 +52,7 @@ export default function MainLayout() {
             <NavLink
               key={item.path}
               to={item.path}
+              onClick={() => setIsSidebarOpen(false)}
               style={({ isActive }) => ({
                 display: 'flex', alignItems: 'center', gap: 12,
                 padding: '12px', borderRadius: 8,
@@ -93,15 +91,25 @@ export default function MainLayout() {
       </aside>
 
       {/* Main Content Area */}
-      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
+      <main className="main-content">
         {/* Top Header */}
-        <header style={{
+        <header className="header-container" style={{
           height: 64, backgroundColor: 'white', borderBottom: '1px solid #e2e8f0',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           padding: '0 24px', flexShrink: 0
         }}>
-          {/* Left: Spacer untuk keseimbangan flex center */}
-          <div style={{ width: 200, display: 'flex', alignItems: 'center' }}>
+          {/* Left: Spacer / Hamburger (Mobile) */}
+          <div className="header-spacer" style={{ display: 'flex', alignItems: 'center' }}>
+            <button 
+              className="mobile-menu-btn"
+              onClick={() => setIsSidebarOpen(true)}
+              style={{ 
+                background: 'transparent', border: 'none', cursor: 'pointer', 
+                padding: 4, borderRadius: 8, color: '#475569', marginLeft: -8
+              }}
+            >
+              <Menu size={24} />
+            </button>
           </div>
           
           {/* Center: Logo */}
@@ -115,7 +123,7 @@ export default function MainLayout() {
           </div>
 
           {/* Right: User Menu */}
-          <div style={{ width: 200, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 20 }}>
+          <div className="header-user" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 20 }}>
             <div style={{ position: 'relative' }}>
               <button 
                 onClick={() => setIsNotifOpen(!isNotifOpen)}
@@ -163,7 +171,7 @@ export default function MainLayout() {
         </header>
 
         {/* Scrollable Content */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '32px' }}>
+        <div className="main-scroll-area" style={{ flex: 1, overflowY: 'auto', padding: '32px' }}>
           <Outlet />
         </div>
       </main>

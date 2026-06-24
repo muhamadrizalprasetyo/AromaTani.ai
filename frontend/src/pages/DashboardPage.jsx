@@ -50,7 +50,7 @@ export default function DashboardPage() {
         <p style={{ color: '#64748b', fontSize: 15 }}>Pantauan status kualitas beras di seluruh gudang secara waktu nyata.</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24, marginBottom: 32 }}>
+      <div className="dashboard-grid">
         <SummaryCard
           title="Total Perangkat"
           value={devices.length}
@@ -78,13 +78,13 @@ export default function DashboardPage() {
         <h3 style={{ fontSize: 16, fontWeight: 600, color: '#0f172a', marginBottom: 20 }}>
           Status Singkat Per Gudang
         </h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div className="device-status-list">
           {devices.map(d => {
             const reading = latestReadings[d.deviceId]
             const isSafe = !reading || reading.aiStatus === 'AMAN'
             
             return (
-              <div key={d.deviceId} style={{ 
+              <div key={d.deviceId} className="device-status-item" style={{ 
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                 padding: '16px', borderRadius: 8, border: '1px solid #e2e8f0',
                 backgroundColor: isSafe ? 'white' : '#fffbeb'
